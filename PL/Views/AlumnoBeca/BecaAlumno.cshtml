@@ -1,0 +1,60 @@
+﻿@model ML.AlumnoBeca
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Becas </h2>
+    <div class="row">
+        @Model.Alumno.IdAlumno
+        @Model.Alumno.Nombre @Model.Alumno.ApellidoPaterno @Model.Alumno.ApellidoMaterno
+
+    </div>
+
+    <div class="row">
+        <div style="float:right">
+            <a class="btn btn-warning glyphicon glyphicon-plus" href="@Url.Action("AsignarBeca","AlumnoBeca", new { IdAlumno =  @Model.Alumno.IdAlumno})"></a>
+        </div>
+
+    </div>
+    <hr />
+    <div class="row">
+        @*<div class="table-responsive">*@
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!--<th>IdUsuario</th>-->
+                    <th>Nombre Beca</th>
+                    <!--<th>Apellido Paterno</th>-->
+                    <!--<th>Apellido Materno</th>-->
+
+
+                    <th>Eliminar</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ML.AlumnoBeca alumnobeca in Model.AlumnoBecas)
+                {
+                    <tr>
+                        <td class="hidden">@alumnobeca.IdAlumnoBeca</td>
+                        <td>@alumnobeca.Beca.Nombre</td>
+
+
+
+
+                        <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("QuitarBeca","AlumnoBeca", new { IdBeca = alumnobeca.Beca.IdBeca, IdAlumno = alumnobeca.Alumno.IdAlumno})"></a></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @*</div>*@
+    </div>
+</div>
+
+

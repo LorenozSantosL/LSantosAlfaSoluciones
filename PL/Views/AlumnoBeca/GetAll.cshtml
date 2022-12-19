@@ -1,0 +1,72 @@
+﻿@model ML.Alumno
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Alumnos</h2>
+
+
+   
+    <hr />
+
+    <div class="row">
+        <div>
+            <div class="col-lg-6">
+                <div class="">
+                    @*@using (Html.BeginForm("GetAll", "AlumnoBeca", FormMethod.Post, new {enctype ="multipart/form-data"}))
+                    {
+                        <div class="row">
+                            <div class="col-4">
+                                @Html.DropDownListFor(model => model.AlumnoBeca.IdAlumnoBeca, new SelectList(Model.AlumnoBeca.AlumnoBecas, "IdAlumnoBeca", "Nombre"), "Seleccione una beca")
+                            </div>
+                        </div>
+                    }*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @*<div class="table-responsive">*@
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!--<th>IdUsuario</th>-->
+                    <th>Nombre</th>
+                    <!--<th>Apellido Paterno</th>-->
+                    <!--<th>Apellido Materno</th>-->
+                    <th>Genero</th>
+                    <th>Edad</th>
+
+
+
+                    <th>Asignar, quitar becas</th>
+                
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ML.Alumno alumno in Model.Alumnos)
+                {
+                    <tr>
+                        <td class="hidden">@alumno.IdAlumno</td>
+                        <td>@alumno.Nombre @alumno.ApellidoPaterno @alumno.ApellidoMaterno</td>
+                        <td>@alumno.Genero</td>
+                        <td>@alumno.Edad</td>
+
+
+
+                        <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("BecaAlumno","AlumnoBeca", new { IdAlumno = alumno.IdAlumno})"></a></td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @*</div>*@
+    </div>
+</div>
+
+

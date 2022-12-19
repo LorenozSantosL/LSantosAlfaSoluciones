@@ -1,0 +1,175 @@
+﻿@model ML.Alumno
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Form</h2>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            @using (Html.BeginForm("Form", "Alumno", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.IdAlumno, new { @class = "hidden" })
+
+                            @Html.TextBoxFor(model => model.IdAlumno, new { @class = "hidden form-control" })
+
+                            @Html.ValidationMessageFor(model => model.IdAlumno)
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.Nombre)
+
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "textNombre", @onkeypress = "return SoloLetras(event,'lblNombre')" })
+
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                            @Html.Label("", null, new { @id = "lblNombre"})
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.ApellidoPaterno)
+                            @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @id = "txtPaterno", @onkeypress = "return SoloLetras(event,'lblPaterno')" })
+                            @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+                            @Html.Label("", null, new { @id = "lblPaterno" })
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.ApellidoMaterno)
+                            @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control ", @id = "txtMaterno", @onkeypress = "return SoloLetras(event,'lblMaterno')" })
+                            @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+                            @Html.Label("", null, new { @id = "lblMaterno" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="row justify-content-evenly">
+
+                            @Html.LabelFor(model => model.Genero)
+                            @*@Html.TextBoxFor(model => model.Sexo, new { @class = "form-control" })*@
+                            <div>
+                                @Html.RadioButtonFor(model => model.Genero, false) @Html.DisplayName("Masculino")
+                            </div>
+                            <div>
+                                @Html.RadioButtonFor(model => model.Genero, true) @Html.DisplayName("Femenino")
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Genero)
+
+                        </div>
+
+                        @*<div class="col-md-3">
+
+                            @Html.LabelFor(model => model.Genero)
+                            @Html.TextBoxFor(model => model.Genero, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Genero)
+
+                        </div>*@
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.Edad)
+                            @Html.TextBoxFor(model => model.Edad, new { @class = "form-control", @id = "txtedad", @onkeypress = "return Edad(event,'lblEdad')" })
+                            @Html.ValidationMessageFor(model => model.Edad)
+                            @Html.Label("", null, new { @id = "lblEdad" })
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+
+
+                            <input type="submit" value="Guardar" class="btn btn-success" />
+
+                            @Html.ActionLink("Regresar", "GetAll", "Alumno", htmlAttributes: new { @class = "btn btn-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+
+
+<script type="text/javascript">
+
+
+
+    function SoloLetras(e, controlId) {
+        var caracter = e.key;
+        if (!/^[a-zA-Z\u00C0-\u00FF ]*$/.test(caracter)) {
+            $('#' + controlId).text("Solo se aceptan letras");
+            $('#' + controlId).css({ "color": "red" });
+            return false;
+        }
+        else {
+            $('#' + controlId).text("");
+            return true;
+        }
+
+
+
+    }
+
+    function Edad(e, controlId) {
+        var caracter = e.key;
+        if (!/^[ 1-1 ] [ 5-8 ]/g.test(caracter)) {
+            $('#' + controlId).text("Solo se aceptan numeros");
+            $('#' + controlId).css({ "color": "red" });
+            return false;
+        }
+        else {
+            $('#' + controlId).text("");
+            return true;
+        }
+    }
+
+</script>
+
+
+
+
+
+
+
+
