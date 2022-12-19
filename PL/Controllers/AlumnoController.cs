@@ -217,7 +217,36 @@ namespace PL.Controllers
 
         public ActionResult Delete(int IdAlumno)
         {
-            if(IdAlumno > 0)
+            ML.Result resultDeletBeca = new ML.Result();
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUrl"]);
+
+                    var responseTask = client.DeleteAsync("AlumnoBeca/DeleteAllByIdalumno/" + IdAlumno);
+
+                    responseTask.Wait();
+
+                    var resultServicio = responseTask.Result;
+
+                    if (resultServicio.IsSuccessStatusCode)
+                    {
+                        resultDeletBeca.Correct = true;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                resultDeletBeca.Correct = false;
+                resultDeletBeca.Message = ex.Message;
+            }
+
+
+
+            if (resultDeletBeca.Correct)
             {
                 //ML.Result result = BL.Alumno.Delete(IdAlumno);
 

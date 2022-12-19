@@ -69,5 +69,21 @@ namespace SL_WEBAPI.Controllers
                 return Content(HttpStatusCode.NotFound, result);
             }
         }
+
+        [Route("api/AlumnoBeca/DeleteAllByIdalumno/{idalumno}")]
+        public IHttpActionResult Delete(int idalumno)
+        {
+            ML.Result result = BL.AlumnoBeca.DeleteAllByIdAlumno(idalumno);
+
+            if (result.Correct)
+            {
+                return Ok(result);
+
+            }
+            else
+            {
+                return Content(HttpStatusCode.NotFound, result);
+            }
+        }
     }
 }

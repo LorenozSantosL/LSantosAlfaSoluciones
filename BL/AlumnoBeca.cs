@@ -1,4 +1,5 @@
 ﻿using DL;
+using ML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -146,6 +147,36 @@ namespace BL
                 result.Ex = ex;
                 result.Message = "Error; " + result.Ex;
             }
+            return result;
+        }
+
+        public static ML.Result DeleteAllByIdAlumno(int IdAlumno)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.LSantosAlfaSolucionesEntities context = new DL.LSantosAlfaSolucionesEntities())
+                {
+                    var query = (from alumnobecaTDB in context.AlumnoBeca
+                                 where alumnobecaTDB.IdAlumno == IdAlumno
+                                
+                                 select alumnobecaTDB).ToList();
+
+                    context.AlumnoBeca.RemoveRange(query);
+                    context.SaveChanges();
+
+                }
+
+                result.Message = "Se ha eliminado la beca del alumno";
+                result.Correct = true;
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Error; " + result.Ex;
+            }
+
             return result;
         }
     }
